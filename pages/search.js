@@ -1,20 +1,33 @@
+import { format } from "date-fns";
 import Head from "next/head"
+import { useRouter } from "next/router"
 import Footer from "../components/Footer"
 import Header from "../components/Header"
+import InfoCard from "../components/InfoCard";
 
-function Search() {
+function Search({searchResults}) {
+    // console.log(window.next.router.query)
+    const router = useRouter();
+
+    //ES6 destructuring
+    const {location, startdate, enddate, noOfGuests} = router.query;
+    // console.log(router.query)
+
+    const formattedStartDate = format(new Date(startdate), 'dd MMMM yy');
+    const formattedEndDate = format(new Date(enddate), 'dd MMMM yy');
+    const range = `${formattedStartDate} - ${formattedEndDate}`;
     return (
         <div className="h-screen">
             <Head>
 				<title>Search results</title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-            <Header />
+            <Header placeholder={`${location.toUpperCase()} | ${range} | ${noOfGuests} guests`} />
 
             <main className="flex">
                 <section className="flex-grow pt-10 px-6">
-                    <p className="text-xs">300+ Stays for 5 number of guests</p>
-                    <h1 className="text-3xl font-semibold mt-2 mb-6">Stays in New York</h1>
+                    <p className="text-xs">300+ stays - {range} for {noOfGuests} guests</p>
+                    <h1 className="text-2xl font-semibold mt-2 mb-4">Stays in {location.toUpperCase()}</h1>
 
                     <div className="hidden lg:inline-flex space-x-3 mb-5 text-gray-800 whitespace-nowrap">
                         <p className="button">Cancellation Flexibility</p>
@@ -23,6 +36,15 @@ function Search() {
                         <p className="button">Rooms and Beds</p>
                         <p className="button">More filters</p>
                     </div>
+
+                    {searchResults.map(item => (
+                        <InfoCard 
+                            key={item.img}
+                            img={item.img}
+                            location = {item.location}
+                        
+                        />
+                    ))}
                 </section>
             </main>
 
@@ -32,3 +54,14 @@ function Search() {
 }
 
 export default Search
+
+export async function getServerSideProps() {
+    const searchResults = await fetch('https://jsonkeeper.com/b/5NPS')
+    .then(res => res.json())
+    return{
+        props: {
+            searchResults,
+        }
+    }
+
+}
