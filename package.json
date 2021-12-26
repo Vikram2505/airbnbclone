@@ -9,6 +9,7 @@
     "@heroicons/react": "^1.0.5",
     "date-fns": "^2.27.0",
     "next": "latest",
+    "nextjs-progressbar": "^0.0.13",
     "react": "^17.0.2",
     "react-date-range": "^1.4.0",
     "react-dom": "^17.0.2",
@@ -16,7 +17,6 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.0",
-    "bar-of-progress": "^1.1.0",
     "postcss": "^8.4.4",
     "tailwindcss": "^3.0.0"
   }

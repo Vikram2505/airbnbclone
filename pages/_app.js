@@ -1,21 +1,21 @@
 import '../styles/global.css'
-import { Router } from 'next/router'
-import ProgressBar from 'bar-of-progress/index'
-
-
-// const progress = new ProgressBar({
-//   size: 4,
-//   color: '#fe59se',
-//   className: 'z-50',
-//   delay: '100'
-// });
-
-// Router.events.on('routeChangeStart',progress.start)
-// Router.events.on('routeChangeComplete', progress.finish)
-// Router.events.on('routeChangeError',progress.finish)
-
+import NextNProgress from 'nextjs-progressbar'
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+  return ( 
+    <>
+      <NextNProgress 
+        color="#f87171"
+        startPosition={0.3}
+        stopDelayMs={200}
+        height={2}
+        showOnShallow={false}
+        options={
+          {easing: 'ease', speed: 500}
+        }
+      />
+      <Component {...pageProps} />
+    </>
+  )
 }
 
 export default MyApp

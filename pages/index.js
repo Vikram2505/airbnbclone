@@ -10,8 +10,8 @@ export default function Home({ exploreData, cardsData }) {
 	return (
 		<div className="">
 			<Head>
-				<title>Airbnb Clone</title>
-				<link rel="icon" href="/favicon.ico" />
+				<title>Airbnb clone</title>
+				<link rel="icon" href="https://a0.muscache.com/airbnb/static/logotype_favicon-21cc8e6c6a2cca43f061d2dcabdf6e58.ico" />
 			</Head>
 
 			<Header />
