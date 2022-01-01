@@ -36,10 +36,12 @@ function Map({ searchResults }) {
                         latitude={result.lat}
                         offsetLeft={-20}
                         offsetTop={-10} >
-                            <p onClick={() =>setSelectedLocation(result)} className='cursor-pointer animate-bounce text-2xl' aria-label='push-pin'>📍</p>
+                            <p onMouseMove={() =>setSelectedLocation(result)} className='cursor-pointer animate-bounce text-2xl' aria-label='push-pin'>📍</p>
                   </Marker>
+
+                  {/* The Popup that show if we hover on pin location */}
                   {selectedLocation.long === result.long ? (
-                  <Popup onClose={() => setSelectedLocation({})} closeOnClick={true} latitude={result.lat}
+                  <Popup onPointerMove={() => setSelectedLocation({})} closeOnClick={true} latitude={result.lat}
                     longitude={result.long}
                   >
                       {result.title}</Popup>) : 
