@@ -5,6 +5,7 @@ import Header from '../components/Header'
 import LargeCard from '../components/LargeCard'
 import MediumCard from '../components/MediumCard'
 import SmallCard from '../components/SmallCard'
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 export default function Home({ exploreData, cardsData }) {
 	return (

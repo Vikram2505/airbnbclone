@@ -41,9 +41,9 @@ function Header({placeholder}) {
     }
 
     return (
-        <header className='sticky z-50 top-0 grid grid-cols-3 bg-zinc-50 p-5 shadow-md md:px-10'>
-            <div onClick={()=> router.push('/')} className='relative flex items-center h-10 cursor-pointer my-auto'>
-                <Image src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Airbnb_Logo_B%C3%A9lo.svg/2560px-Airbnb_Logo_B%C3%A9lo.svg.png" layout='fill' objectFit='contain' objectPosition='left' />
+        <header className='fixed w-full z-50 top-0 grid grid-cols-2 sm:grid-cols-3 bg-zinc-50 p-3 lg:p-5 shadow-md md:px-10'>
+            <div  className='relative flex items-center hidden h-10 cursor-pointer my-auto md:block lg:block'>
+                <Image onClick={()=> router.push('/')} src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Airbnb_Logo_B%C3%A9lo.svg/2560px-Airbnb_Logo_B%C3%A9lo.svg.png" height='50' width='130' objectFit='contain' objectPosition='left' />
             </div>
 
             {/* middle - search */}
@@ -64,26 +64,26 @@ function Header({placeholder}) {
                 </div>
             </div>
             { isComponentVisible ? ( 
-                <div className='flex flex-col col-span-3 mx-auto'>
+                <div className='flex flex-col col-span-3 mt-6 mx-auto rounded-lg'>
                    <div ref={ref} onClick={()=> setIsComponentVisible(isComponentVisible)}>
-                    <DateRangePicker
-                        ranges={[selectionRange]}
-                        months={2}
-                        direction='horizontal'
-                        minDate={new Date()}
-                        rangeColors={["#fd5b61"]}
-                        onChange={handleSelect}
+                        <DateRangePicker
+                            ranges={[selectionRange]}
+                            months={2}
+                            direction='horizontal'
+                            minDate={new Date()}
+                            rangeColors={["#fd5b61"]}
+                            onChange={handleSelect}
 
-                    />
-                    <div className='flex items-center border-b mb-4'>
-                        <h2 className='text-2xl pl-5 flex-grow font-semibold'>Number of Guests</h2>
-                        <UsersIcon className='h-5' />
-                        <input value={noOfGuests} onChange={e => setNoOfGuests(e.target.value)} type="number" className='w-12 pl-2 outline-none text-red-400' min={1} />
-                    </div>
+                        />
+                        <div className='flex items-center bg-white border-b mb-4'>
+                            <h2 className='text-2xl pl-5 flex-grow font-semibold mb-2'>Number of Guests</h2>
+                            <UsersIcon className='h-5' />
+                            <input value={noOfGuests} onChange={e => setNoOfGuests(e.target.value)} type="number" className='w-12 pl-2 outline-none text-red-400' min={1} />
+                        </div>
                     </div>
                     <div className='flex'>
-                        <button className='flex-grow text-gray-500'>Cancel</button>
-                        <button onClick={search} className='flex-grow text-red-400'>Search</button>
+                        <button className='flex-grow text-gray-500 py-2 hover:bg-red-400 shadow-sm hover:text-white rounded-md transition-all delay-100'>Cancel</button>
+                        <button onClick={search} className='flex-grow text-red-400 py-2 shadow-sm hover:bg-red-400 hover:text-white rounded-md transition-all delay-100'>Search</button>
                     </div>
                 </div>) : (<></>)
             }

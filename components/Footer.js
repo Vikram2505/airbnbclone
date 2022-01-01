@@ -1,7 +1,7 @@
 function Footer() {
     return (
         <div className="bg-gray-100 max-w-full p-8 sm:px-16  ">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-y-10">
+            <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 gap-y-10">
                 <div className="space-y-3 text-sm">
                     <h5 className="font-bold">SUPPORT</h5>
                     <p>Help Center</p>
@@ -27,6 +27,7 @@ function Footer() {
                     <p>Visit our community forum</p>
                     <p>How to host responsibly</p>
                 </div>
+                
                 <div className="space-y-3 text-sm">
                     <h5 className="font-bold">ABOUT</h5>
                     <p>Newsroom</p>

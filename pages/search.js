@@ -4,14 +4,13 @@ import { useRouter } from "next/router"
 import Footer from "../components/Footer"
 import Header from "../components/Header"
 import InfoCard from "../components/InfoCard";
+import Map from "../components/Map";
 
 function Search({searchResults}) {
-    // console.log(window.next.router.query)
     const router = useRouter();
 
     //ES6 destructuring
     const {location, startdate, enddate, noOfGuests} = router.query;
-    // console.log(router.query)
 
     const formattedStartDate = format(new Date(startdate), 'dd MMMM yy');
     const formattedEndDate = format(new Date(enddate), 'dd MMMM yy');
@@ -20,20 +19,24 @@ function Search({searchResults}) {
         <div className="h-screen">
             <Head>
 				<title>Search results</title>
-				<link rel="icon" href="/favicon.ico" />
+				<link rel="icon" href="https://a0.muscache.com/airbnb/static/logotype_favicon-21cc8e6c6a2cca43f061d2dcabdf6e58.ico" />				
 			</Head>
             <Header placeholder={`${location.toUpperCase()} | ${range} | ${noOfGuests} guests`} />
 
             <main className="flex">
-                <section className="flex-grow pt-10 px-6">
-                    <p className="text-xs">300+ stays - {range} for {noOfGuests} guests</p>
+                <section className="flex-grow pt-32 px-6 min-w-[100px]">
+                    <p className="text-sm mb-5 font-medium">300+ stays - <span className="bg-red-400 p-1 text-white rounded-md mr-1"> {formattedStartDate} </span> - <span className="bg-red-400 p-1 text-white rounded-md mr-1">{formattedEndDate}</span> for {noOfGuests} guests</p>
                     <h1 className="text-2xl font-semibold mt-2 mb-4">Stays in {location.toUpperCase()}</h1>
 
                     <div className="hidden lg:inline-flex space-x-3 mb-5 text-gray-800 whitespace-nowrap">
-                        <p className="button">Cancellation Flexibility</p>
-                        <p className="button">Type of Place</p>
                         <p className="button">Price</p>
+                        <p className="button">Type of place</p>
+                        <p className="button">Free cancellation</p>
+                        <p className="button">Type of Place</p>
                         <p className="button">Rooms and Beds</p>
+                        <p className="button">Wifi</p>
+                        <p className="button">Free parking</p>
+                        <p className="button">Self check-in</p>
                         <p className="button">More filters</p>
                     </div>
                     <div className="flex flex-col border-t pb-3">
@@ -52,6 +55,10 @@ function Search({searchResults}) {
                             />
                         ))}
                     </div>
+                </section>
+
+                <section className="hidden lg:inline-flex lg:min-w-[600px]">
+                    <Map searchResults = {searchResults} />
                 </section>
             </main>
 
