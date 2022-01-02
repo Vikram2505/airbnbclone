@@ -75,7 +75,7 @@ function Header({placeholder}) {
                             onChange={handleSelect}
 
                         />
-                        <div className='flex items-center bg-white border-b mb-4'>
+                        <div className='flex items-center bg-white border-b '>
                             <h2 className='text-2xl pl-5 flex-grow font-semibold mb-2'>Number of Guests</h2>
                             <UsersIcon className='h-5' />
                             <input value={noOfGuests} onChange={e => setNoOfGuests(e.target.value)} type="number" className='w-12 pl-2 outline-none text-red-400' min={1} />

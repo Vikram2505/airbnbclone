@@ -5,6 +5,7 @@ import getCenter  from 'geolib/es/getCenter';
 
 function Map({ searchResults }) {
     const [selectedLocation, setSelectedLocation] = useState({})
+    console.log(selectedLocation)
 
     const coordinates = searchResults.map(result=> ({
         longitude: result.long,
@@ -14,7 +15,7 @@ function Map({ searchResults }) {
     
     const [viewport, setViewport] = useState({ 
         width:"100%",
-        height:"100vh",
+        height:"100%",
         position: 'fixed',
         latitude: center.latitude,
         longitude: center.longitude,
@@ -36,7 +37,8 @@ function Map({ searchResults }) {
                         latitude={result.lat}
                         offsetLeft={-20}
                         offsetTop={-10} >
-                            <p onMouseMove={() =>setSelectedLocation(result)} className='cursor-pointer animate-bounce text-2xl' aria-label='push-pin'>📍</p>
+                            <p onMouseMove={() =>setSelectedLocation(result)} className='cursor-pointer animate-bounce text-2xl' 
+                            aria-label='push-pin'>📍</p>
                   </Marker>
 
                   {/* The Popup that show if we hover on pin location */}
