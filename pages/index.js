@@ -60,7 +60,17 @@ export default function Home({ exploreData, cardsData }) {
 
 export async function getStaticProps() {
 	const exploreData = await fetch('https://jsonkeeper.com/b/VVCJ')
-		.then(res => res.json());
+		.then(res => {
+			if(!res.ok){
+				throw new Error(
+					`This is an HTTP error: The status is ${res.status} `
+				);
+			}
+			return res.json()
+		
+		}).catch((err) => {
+			console.log(err.message);
+		})
 
 	const cardsData = await fetch(' https://jsonkeeper.com/b/VMSR')
 		.then(res => res.json());
