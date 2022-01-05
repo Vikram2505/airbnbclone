@@ -15,7 +15,6 @@ function Header({ placeholder }) {
     const [noOfGuests, setNoOfGuests] = useState('1');
     const router = useRouter();
     const { ref, isComponentVisible, setIsComponentVisible } = UseComponentVisible(false);
-console.log(isComponentVisible)
     const inputref = useRef(null);
 
     const handleSelect = (ranges) => {
@@ -23,9 +22,7 @@ console.log(isComponentVisible)
         setEndDate(ranges.selection.endDate)
     }
 
-    const search = () => {
-        console.log(inputref.current)
-        {
+    const search = () => {        
             !inputref.current.value ? (
                 inputref.current.classList.add('border-red-400'))
                 : (
@@ -38,8 +35,7 @@ console.log(isComponentVisible)
                             enddate: endDate.toISOString(),
                             noOfGuests
                         },
-                    }))
-        }
+                    }))        
     }
 
     const selectionRange = {
@@ -98,7 +94,7 @@ console.log(isComponentVisible)
                         </div>
                     </div>
                         <div className='flex'>
-                            <button onClick={() => setIsComponentVisible(false)} className='flex-grow text-gray-500 py-2 hover:bg-red-400 shadow-sm hover:text-white rounded-md active:scale-90'>Cancel</button>
+                            <button className='flex-grow text-gray-500 py-2 hover:bg-red-400 shadow-sm hover:text-white rounded-md active:scale-90'>Cancel</button>
                             <button onClick={search} className='flex-grow text-red-400 py-2 shadow-sm hover:bg-red-400 hover:text-white rounded-md active:scale-90'>Search</button>
                         </div>
                 </div>) : (<></>)
