@@ -7,15 +7,16 @@ import { DateRangePicker } from 'react-date-range';
 import { useRouter } from 'next/router';
 import UseComponentVisible from './UseComponentVisible';
 
-function Header({placeholder}) {
+function Header({ placeholder }) {
     const [searchInput, setSerchInput] = useState('');
     // const [showSearchInput, setShowSearchInput] = useState(false)
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
     const [noOfGuests, setNoOfGuests] = useState('1');
     const router = useRouter();
-
     const { ref, isComponentVisible, setIsComponentVisible } = UseComponentVisible(false);
+
+    const inputref = useRef(null);
     
     const handleSelect = (ranges) => {
         setStartDate(ranges.selection.startDate)
@@ -23,15 +24,22 @@ function Header({placeholder}) {
     }
 
     const search = () => {
-        router.push({
-            pathname: '/search',
-            query: {
-                location: searchInput,
-                startdate: startDate.toISOString(),
-                enddate: endDate.toISOString(),
-                noOfGuests
-            },
-        })
+        console.log(inputref.current)
+        {
+            !inputref.current.value ?(
+            inputref.current.classList.add('border-red-400') )
+            :(
+            inputref.current.classList.remove('border-red-400') ,       
+            router.push({
+                pathname: '/search',
+                query: {
+                    location: searchInput,
+                    startdate: startDate.toISOString(),
+                    enddate: endDate.toISOString(),
+                    noOfGuests
+                },
+            })) 
+        }
     }
 
     const selectionRange = {
@@ -41,18 +49,18 @@ function Header({placeholder}) {
     }
 
     return (
-        <header className='fixed w-full z-50 top-0 grid grid-cols-2 sm:grid-cols-3 bg-zinc-50 p-3 lg:p-5 shadow-md md:px-10'>
-            <div  className='relative flex items-center hidden h-10 cursor-pointer my-auto md:block lg:block'>
-                <Image onClick={()=> router.push('/')} src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Airbnb_Logo_B%C3%A9lo.svg/2560px-Airbnb_Logo_B%C3%A9lo.svg.png" height='50' width='130' objectFit='contain' objectPosition='left' />
+        <header className='fixed w-full z-50 top-0  grid grid-cols-2 sm:grid-cols-3  bg-zinc-50 p-3 lg:p-5 shadow-md md:px-10'>
+            <div className='relative flex items-center hidden h-10 cursor-pointer my-auto md:block lg:block'>
+                <Image onClick={() => router.push('/')} src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Airbnb_Logo_B%C3%A9lo.svg/2560px-Airbnb_Logo_B%C3%A9lo.svg.png" height='50' width='130' objectFit='contain' objectPosition='left' />
             </div>
 
             {/* middle - search */}
-            <div className='flex items-center md:border-2 rounded-full py-2 pr-2 md:shadow-sm'>
-                <input value={searchInput} onChange={(e) => setSerchInput(e.target.value)}  
-                    ref={ref} onClick={()=> setIsComponentVisible(!isComponentVisible)}
-                    className='flex-grow pl-5 bg-transparent outline-none text-sm text-gray-600 placeholder-gray-400' type="text" 
+            <div  className='flex items-center relative'>
+                <input value={searchInput} onChange={(e) => setSerchInput(e.target.value)}
+                   ref={inputref}  onClick={() => setIsComponentVisible(!isComponentVisible)}
+                    className=' md:border-2 rounded-full py-3 pr-2 md:shadow-sm    flex-grow pl-5 bg-transparent outline-none text-sm text-gray-600 placeholder-gray-400' type="text"
                     placeholder={placeholder || 'Start your search'} />
-                <SearchIcon className='hidden md:inline-flex h-8 bg-red-400 text-white rounded-full p-2 cursor-pointer ' />
+                <SearchIcon className='hidden md:inline-flex h-8 absolute right-3 bg-red-400 text-white rounded-full p-2 cursor-pointer ' />
             </div>
 
             <div className='flex space-x-4 items-center justify-end'>
@@ -63,9 +71,10 @@ function Header({placeholder}) {
                     <UserCircleIcon className='h-6' />
                 </div>
             </div>
-            { isComponentVisible ? ( 
+            {isComponentVisible ? (
                 <div className='flex flex-col col-span-3 mt-6 mx-auto rounded-lg'>
-                   <div ref={ref} onClick={()=> setIsComponentVisible(isComponentVisible)}>
+                    <div ref={ref} onClick={() => setIsComponentVisible(isComponentVisible)}>
+
                         <DateRangePicker
                             ranges={[selectionRange]}
                             months={2}
@@ -80,10 +89,10 @@ function Header({placeholder}) {
                             <UsersIcon className='h-5' />
                             <input value={noOfGuests} onChange={e => setNoOfGuests(e.target.value)} type="number" className='w-12 pl-2 outline-none text-red-400' min={1} />
                         </div>
-                    </div>
                     <div className='flex'>
-                        <button className='flex-grow text-gray-500 py-2 hover:bg-red-400 shadow-sm hover:text-white rounded-md transition-all delay-100'>Cancel</button>
-                        <button onClick={search} className='flex-grow text-red-400 py-2 shadow-sm hover:bg-red-400 hover:text-white rounded-md transition-all delay-100'>Search</button>
+                        <button className='flex-grow text-gray-500 py-2 hover:bg-red-400 shadow-sm hover:text-white rounded-md active:scale-90'>Cancel</button>
+                        <button onClick={search} className='flex-grow text-red-400 py-2 shadow-sm hover:bg-red-400 hover:text-white rounded-md active:scale-90'>Search</button>
+                    </div>
                     </div>
                 </div>) : (<></>)
             }
