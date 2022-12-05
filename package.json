@@ -9,6 +9,7 @@
     "@heroicons/react": "^1.0.5",
     "date-fns": "^2.27.0",
     "geolib": "^3.3.3",
+    "moment": "^2.29.4",
     "next": "latest",
     "nextjs-progressbar": "^0.0.13",
     "react": "^17.0.2",

@@ -6,8 +6,11 @@ import LargeCard from '../components/LargeCard'
 import MediumCard from '../components/MediumCard'
 import SmallCard from '../components/SmallCard'
 import 'mapbox-gl/dist/mapbox-gl.css';
+import data from "../utility/homes.json"
 
-export default function Home({ exploreData, cardsData }) {
+
+export default function Home() { //{ exploreData, cardsData }
+
 	return (
 		<div className="">
 			<Head>
@@ -22,7 +25,7 @@ export default function Home({ exploreData, cardsData }) {
 				<section className='pt-6'>
 					<h2 className='text-4xl font-semibold pb-5'>Explore Nearby</h2>
 					<div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
-						{exploreData.map(({ img, distance, location }) => (
+						{data.data.exploreData?.map(({ img, distance, location }) => (
 							<SmallCard
 								key={img}
 								img={img}
@@ -36,7 +39,7 @@ export default function Home({ exploreData, cardsData }) {
 				<section>
 					<h2 className='text-4xl font-semibold pt-6 '>Live Anywhere</h2>
 					<div className='flex space-x-3 p-3 -ml-3 overflow-scroll scrollbar-hide'>
-						{cardsData?.map(item => (
+						{data.data.cardsData?.map(item => (
 							<MediumCard
 								key={item.img}
 								img={item.img}
@@ -58,26 +61,26 @@ export default function Home({ exploreData, cardsData }) {
 }
 
 
-export async function getStaticProps() {
-	const exploreData = await fetch('https://jsonkeeper.com/b/VVCJ')
-		.then(res => {
-			if(!res.ok){
-				throw new Error(
-					`This is an HTTP error: The status is ${res.status} `
-				);
-			}
-			return res.json()
+// export async function getStaticProps() {
+// 	const exploreData = await fetch('../utility/homes.json')
+// 		.then(res => {
+// 			if(!res.ok){
+// 				throw new Error(
+// 					`This is an HTTP error: The status is ${res.status} `
+// 				);
+// 			}
+// 			return res.json()
 		
-		}).catch((err) => {
-			console.log(err.message);
-		})
+// 		}).catch((err) => {
+// 			console.log(err.message);
+// 		})
 
-	const cardsData = await fetch(' https://jsonkeeper.com/b/VMSR')
-		.then(res => res.json());
+// 	const cardsData = await fetch(' https://jsonkeeper.com/b/VMSR')
+// 		.then(res => res.json());
 
-	return {
-		props: {
-			exploreData, cardsData
-		}
-	}
-}
+// 	return {
+// 		props: {
+// 			exploreData, cardsData
+// 		}
+// 	}
+// }
