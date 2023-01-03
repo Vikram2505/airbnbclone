@@ -138,6 +138,41 @@
                 "long": -0.109889,
                 "lat": 51.521245
             }
+        ],
+        "facilityOffers": [
+            {
+                "service": "Wifi"
+            },
+            {
+                "service": "TV"
+            },
+            {
+                "service": "Kitchen"
+            },
+            {
+                "service": "Washing machine"
+            },
+            {
+                "service": "Free parking"
+            },
+            {
+                "service": "Air conditioning"
+            },
+            {
+                "service": "Iron"
+            },
+            {
+                "service": "Pool"
+            },
+            {
+                "service": "Hot tub"
+            },
+            {
+                "service": "EV charger"
+            },
+            {
+                "service": "Gym"
+            }
         ]
     }
 }
