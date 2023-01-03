@@ -59,38 +59,38 @@ export default function Home({ exploreData }) {
   );
 }
 
-export async function getStaticProps() {
-  const body = {
-    pageNo: 1,
-    dataLimit: 10,
-  };
-  const exploreData = await fetch(
-    "http://localhost:3000/home/get-all-homes",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    }
-  )
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error(`This is an HTTP error: The status is ${res.status} `);
-      }
-      return res.json();
-    })
-    .catch((err) => {
-      console.log(err.message);
-    });
+// export async function getStaticProps() {
+//   const body = {
+//     pageNo: 1,
+//     dataLimit: 10,
+//   };
+//   const exploreData = await fetch(
+//     "http://localhost:3000/home/get-all-homes",
+//     {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify(body),
+//     }
+//   )
+//     .then((res) => {
+//       if (!res.ok) {
+//         throw new Error(`This is an HTTP error: The status is ${res.status} `);
+//       }
+//       return res.json();
+//     })
+//     .catch((err) => {
+//       console.log(err.message);
+//     });
 
-  // 	const cardsData = await fetch(' https://jsonkeeper.com/b/VMSR')
-  // 		.then(res => res.json());
+//   // 	const cardsData = await fetch(' https://jsonkeeper.com/b/VMSR')
+//   // 		.then(res => res.json());
 
-  return {
-    props: {
-      exploreData,
-      // cardsData
-    },
-  };
-}
+//   return {
+//     props: {
+//       exploreData,
+//       // cardsData
+//     },
+//   };
+// }

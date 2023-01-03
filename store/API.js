@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const API = axios.create({
-    baseURL: "http://localhost:3000",
+    // baseURL: "http://localhost:3000",
+    baseURL: "https://backend-airbnb-clone.vercel.app",
     headers: {
     "Accept": "application/json",
     "Content-Type": "multipart/form-data",
