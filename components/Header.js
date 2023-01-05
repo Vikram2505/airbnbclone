@@ -58,6 +58,7 @@ function Header({ placeholder }) {
     key: "selection",
   };
 
+  // assign names to dropdown
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
   }
@@ -86,7 +87,7 @@ function Header({ placeholder }) {
           type="text"
           placeholder={placeholder || "Start your search"}
         />
-        <SearchIcon className="hidden md:inline-flex h-8 absolute right-3 bg-red-400 text-white rounded-full p-2 cursor-pointer " />
+        <SearchIcon onClick={search} className="hidden md:inline-flex h-8 absolute right-3 bg-red-400 text-white rounded-full p-2 cursor-pointer " />
       </div>
 
       <div className="flex space-x-4 items-center justify-end">

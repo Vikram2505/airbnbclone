@@ -20,5 +20,6 @@ API.interceptors.request.use((req) => {
 
 export const getAllHomes = (formData) => API.post("/home/get-all-homes", formData);
 
-export const registerHomeAPI = (formData) => API.post("/home/create-home", formData);
-
+export const registerHomeAPI = (formData) => API.post("/home/create-home", formData).catch((err)=> {
+  console.log(err.response,'api err');
+});

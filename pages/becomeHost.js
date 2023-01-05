@@ -91,7 +91,9 @@ export default function becomeHost() {
     // validationSchema: RegisterHomeSchema,
     onSubmit: (values) => {
       dispatch(registerHome(values));
-
+      if(success){
+        router.push("/");
+      }
       setToggle((e) => !e);
     },
   });
@@ -134,7 +136,6 @@ export default function becomeHost() {
     RegisterHomeFormik.setFieldValue("latitude", position.coords.latitude);
     RegisterHomeFormik.setFieldValue("longitude", position.coords.longitude);
   }
-  console.log(thisPlaceOffers);
 
   useEffect(() => {
     getLocation();
@@ -143,7 +144,6 @@ export default function becomeHost() {
     }
     if (success) {
       toast.success(success);
-      router.push("/");
       RegisterHomeFormik.handleReset();
       homeImages.length = 0;
       ownerImage.length = 0;
@@ -169,7 +169,7 @@ export default function becomeHost() {
             <h1 className="text-lg lg:text-4xl font-semibold mb-5">
               Register your Residance
             </h1>
-            <form onSubmit={RegisterHomeFormik.handleSubmit}>
+            <form onSubmit={RegisterHomeFormik.handleSubmit} enctype="multipart/form-data">
               <div className="overflow-hidden shadow sm:rounded-md">
                 <div className="bg-white px-4 py-5 sm:p-6">
                   <div className="grid grid-cols-6 gap-6">

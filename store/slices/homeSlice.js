@@ -9,6 +9,7 @@ export const allHomes = createAsyncThunk(
       const response = await API.getAllHomes(formValue);
       return await response.data;
     } catch (err) {
+      console.log(err);
       return rejectWithValue(err.response.data);
     }
   }
@@ -17,10 +18,12 @@ export const allHomes = createAsyncThunk(
 export const registerHome = createAsyncThunk(
   "/home/create-home",
   async (formValue, { rejectWithValue }) => {
+    console.log("call");
     try {
       let response = await API.registerHomeAPI(formValue);
-      return await response.data;
+      return response.data;
     } catch (err) {
+      console.log(err);
       return rejectWithValue(err.response.data);
     }
   }
@@ -57,15 +60,15 @@ const homeSlice = createSlice({
     [registerHome.pending]: (state, action) => {
       state.loading = true;
       state.error = "";
-
+      state.success = "";
     },
     [registerHome.fulfilled]: (state, action) => {
       state.loading = false;
-      state.success = action.payload.message;
+      state.success = action?.payload?.message;
     },
     [registerHome.rejected]: (state, action) => {
-      state.loading = false;      
-      state.error = action.payload.message;
+      state.loading = false;
+      state.error = action?.payload?.message;
     },
   },
 });

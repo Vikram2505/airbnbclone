@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import Footer from "../components/Footer";
@@ -11,11 +11,13 @@ import Image from "next/image";
 
 import {allHomes} from "../store/slices/homeSlice.js";
 import { useDispatch, useSelector } from 'react-redux';
+import Pagination from "../components/Pagination";
 
 export default function Search() {
   const router = useRouter();
   const dispatch = useDispatch();
-  const {AllHomes} = useSelector((state) => ({...state.AllHomes.Homes}));
+  const [currentPage, setCurrentPage] = useState(1);
+  const {AllHomes, numberOfPages, count} = useSelector((state) => ({...state.AllHomes.Homes}));
 //   console.log(AllHomes,'all homes');
   //ES6 destructuring
   const { location, startdate, enddate, noOfGuests } = router.query;
@@ -23,11 +25,10 @@ export default function Search() {
   const formattedEndDate = moment(new Date(enddate)).format("ddd MMMM yy");
   const range = `${formattedStartDate} - ${formattedEndDate}`;
 
-console.log(location);
   const getAllHomes = () => {
     let requestBody = {
-        "dataLimit": 20,
-        "pageNo": 1,
+        "dataLimit": 5,
+        "pageNo": currentPage,
         "keyword": location,
         "minPrice": "",
         "maxPrice": "",
@@ -42,9 +43,14 @@ console.log(location);
     dispatch(allHomes(requestBody));    
 };
 
+const handlePageClick = (e) => {
+  // dispatch(setCurrentPage(e.selected + 1));
+  setCurrentPage(e.selected + 1);
+};
+
 useEffect(() => {
     getAllHomes();
-}, [])
+}, [location, currentPage])
   return (
     <div className="h-screen">
       <Head>
@@ -71,7 +77,7 @@ useEffect(() => {
             for {noOfGuests} guests
           </p>
           <h2 className="text-2xl font-semibold mt-2 mb-4">
-            Stays in {location} - ({AllHomes?.length} Results found)
+            Stays in {location} - ({count} Results found)
           </h2>
 
           <div className="hidden lg:inline-flex space-x-3 mb-5 text-gray-800 whitespace-nowrap">
@@ -102,6 +108,7 @@ useEffect(() => {
               )
             )}
           </div>
+          <Pagination handlePageClick={handlePageClick} pageCount={numberOfPages} />
         </section>
 
         <section className="hidden sticky top-0 lg:inline-flex h-screen lg:min-w-[600px]">
