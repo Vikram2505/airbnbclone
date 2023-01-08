@@ -4,9 +4,9 @@ This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v3.0)](
 
 ## Preview
 
-Preview the example live on [StackBlitz](http://stackblitz.com/):
+Preview the example live on website click on the below icon:
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-tailwindcss)
+[![Open in StackBlitz](https://airbnbclone-kappa.vercel.app/_next/image?url=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Fthumb%2F6%2F69%2FAirbnb_Logo_B%25C3%25A9lo.svg%2F2560px-Airbnb_Logo_B%25C3%25A9lo.svg.png&w=256&q=75)](https://airbnbclone-kappa.vercel.app/)
 
 ## Deploy your own
 
