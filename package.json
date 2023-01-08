@@ -3,8 +3,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "proxy": "https://backend-airbnb-clone.vercel.app"
+    "start": "next start"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.7",

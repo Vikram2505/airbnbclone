@@ -10,7 +10,6 @@ import data from "../utility/homes.json";
 
 export default function Home({ exploreData }) {
   //{ exploreData, cardsData }
-  console.log(exploreData, "exploredata");
   return (
     <div className="">
       <Head>
