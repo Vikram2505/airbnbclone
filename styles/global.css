@@ -2,10 +2,9 @@
 @tailwind components;
 
 @layer components {
-    .button{
-       @apply px-4 py-2 border rounded-full cursor-pointer hover:shadow-md active:scale-95 active:bg-gray-100 transition transform duration-100 ease-out;
+    .button {
+        @apply px-4 py-2 border rounded-full cursor-pointer hover: shadow-md active:scale-95 active:bg-gray-100 transition transform duration-100 ease-out;
     }
-    
 }
 
 @tailwind utilities;
