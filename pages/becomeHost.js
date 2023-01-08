@@ -5,12 +5,12 @@ import data from "../utility/homes.json";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-
+import withPrivateRoute from "../components/withPrivateRoute";
 import { registerHome } from "../store/slices/homeSlice.js";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 
-export default function becomeHost() {
+ function becomeHost() {
   const [thisPlaceOffers, setThisPlaceOffers] = useState([]);
   const [homeImages, setHomeImages] = useState([]);
   const [ownerImage, setOwnerImage] = useState([]);
@@ -24,34 +24,34 @@ export default function becomeHost() {
   const [toggle, setToggle] = useState(false);
   const dispatch = useDispatch();
 
-  // const RegisterHomeSchema = Yup.object().shape({
-  //   home_name: Yup.string().required("*This field is required"),
-  //   owner_name: Yup.string().required("*This field is required"),
-  //   owner_email: Yup.string()
-  //     .email("Please enter a valid email")
-  //     .required("*This field is required"),
-  //   owner_phoneNo: Yup.number()
-  //     .min(10, "Please enter a valid phone no.")
-  //     .required("*This field is required"),
-  //   home_desc: Yup.string().required("*This field is required"),
-  //   // home_image: Yup.string().required(),
-  //   // owner_image: Yup.string().required(),
-  //   price: Yup.number().required("*This field is required"),
-  //   // location: Yup.string().required("*This field is required"),
-  //   // home_city: Yup.string().required("*This field is required"),
-  //   // home_state: Yup.string().required("*This field is required"),
-  //   // home_zipCode: Yup.number().required("*This field is required"),
-  //   // latitude: Yup.number().required("*This field is required"),
-  //   // longitude: Yup.number().required("*This field is required"),
-  //   // total_guests: Yup.number().required("*This field is required"),
-  //   // total_beds: Yup.number().required("*This field is required"),
-  //   // total_bedroom: Yup.number().required("*This field is required"),
-  //   // total_bathroom: Yup.number().required("*This field is required"),
-  //   // rating: Yup.number().required("*This field is required"),
-  //   // this_place_offers: Yup.array().required("*This field is required"),
-  //   // property_type: Yup.string().required("*This field is required"),
-  //   // type_of_place: Yup.string().required("*This field is required"),
-  // });
+  const RegisterHomeSchema = Yup.object().shape({
+    home_name: Yup.string().required("*This field is required"),
+    owner_name: Yup.string().required("*This field is required"),
+    owner_email: Yup.string()
+      .email("Please enter a valid email")
+      .required("*This field is required"),
+    owner_phoneNo: Yup.number()
+      .min(10, "Please enter a valid phone no.")
+      .required("*This field is required"),
+    home_desc: Yup.string().required("*This field is required"),
+    // home_image: Yup.string().required(),
+    // owner_image: Yup.string().required(),
+    price: Yup.number().required("*This field is required"),
+    // location: Yup.string().required("*This field is required"),
+    // home_city: Yup.string().required("*This field is required"),
+    // home_state: Yup.string().required("*This field is required"),
+    // home_zipCode: Yup.number().required("*This field is required"),
+    // latitude: Yup.number().required("*This field is required"),
+    // longitude: Yup.number().required("*This field is required"),
+    // total_guests: Yup.number().required("*This field is required"),
+    // total_beds: Yup.number().required("*This field is required"),
+    // total_bedroom: Yup.number().required("*This field is required"),
+    // total_bathroom: Yup.number().required("*This field is required"),
+    // rating: Yup.number().required("*This field is required"),
+    // this_place_offers: Yup.array().required("*This field is required"),
+    // property_type: Yup.string().required("*This field is required"),
+    // type_of_place: Yup.string().required("*This field is required"),
+  });
 
   // This place offers checkbox store value
   const checkboxValue = (event) => {
@@ -88,12 +88,10 @@ export default function becomeHost() {
       property_type: "",
       type_of_place: "",
     },
-    // validationSchema: RegisterHomeSchema,
+    validationSchema: RegisterHomeSchema,
     onSubmit: (values) => {
       dispatch(registerHome(values));
-      if(success){
-        router.push("/");
-      }
+      
       setToggle((e) => !e);
     },
   });
@@ -144,6 +142,7 @@ export default function becomeHost() {
     }
     if (success) {
       toast.success(success);
+      router.push("/");
       RegisterHomeFormik.handleReset();
       homeImages.length = 0;
       ownerImage.length = 0;
@@ -169,7 +168,7 @@ export default function becomeHost() {
             <h1 className="text-lg lg:text-4xl font-semibold mb-5">
               Register your Residance
             </h1>
-            <form onSubmit={RegisterHomeFormik.handleSubmit} enctype="multipart/form-data">
+            <form onSubmit={RegisterHomeFormik.handleSubmit} encType="multipart/form-data">
               <div className="overflow-hidden shadow sm:rounded-md">
                 <div className="bg-white px-4 py-5 sm:p-6">
                   <div className="grid grid-cols-6 gap-6">
@@ -752,6 +751,11 @@ export default function becomeHost() {
   );
 }
 
+becomeHost.getInitialProps = async props => {
+  console.info('##### Congratulations! You are authorized! ######', props);
+  return { }
+}
+
 // export async function getServerSideProps() {
 
 //   const exploreData = await fetch("http://localhost:3000/home/create-home", {
@@ -777,5 +781,9 @@ export default function becomeHost() {
 //     becomeHost: {
 //       exploreData,
 //     },
-//   };
+//   }; 
 // }
+
+export default withPrivateRoute(becomeHost);
+
+// export default becomeHost;

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, { useState, useRef, Fragment } from "react";
+import React, { useState, useRef, Fragment, useEffect } from "react";
 import {
   SearchIcon,
   GlobeAltIcon,
@@ -16,6 +16,9 @@ import UseComponentVisible from "./UseComponentVisible";
 import Link from "next/link";
 import { Dialog, Menu, Transition } from "@headlessui/react";
 import Login from "./Login";
+import Signup from "./Signup";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser, setLogout } from "../store/slices/authSlice";
 
 function Header({ placeholder }) {
   const [searchInput, setSerchInput] = useState("");
@@ -25,8 +28,18 @@ function Header({ placeholder }) {
   const [noOfGuests, setNoOfGuests] = useState("1");
   const router = useRouter();
   const [openSignupModal, setOpenSignupModal] = useState(false);
-
+  const [openLoginModal, setOpenLoginModal] = useState(false);
+  const dispatch = useDispatch();
   const cancelButtonRef = useRef(null);
+
+  const { userInfo } = useSelector((state) => ({
+    ...state.Auth,
+  }));
+
+  // Get token from localstorage and send using dispatch
+  if (typeof window !== "undefined") {
+    const user = JSON.parse(localStorage?.getItem("airSecret"));
+  }
 
   const { ref, isComponentVisible, setIsComponentVisible } =
     UseComponentVisible(false);
@@ -63,6 +76,15 @@ function Header({ placeholder }) {
     return classes.filter(Boolean).join(" ");
   }
 
+  const handleLogout = () => {
+    dispatch(setLogout());
+  };
+
+  useEffect(() => {
+    // set userInfo into redux
+    dispatch(setUser(user));
+  }, []);
+
   return (
     <header className="fixed w-full z-50 top-0 grid grid-cols-2 sm:grid-cols-3 md:w-full  bg-zinc-50 p-3 lg:px-50 lg:py-5 shadow-md md:px-10">
       <div className="relative flex items-center hidden h-10 cursor-pointer my-auto md:block lg:block">
@@ -87,7 +109,10 @@ function Header({ placeholder }) {
           type="text"
           placeholder={placeholder || "Start your search"}
         />
-        <SearchIcon onClick={search} className="hidden md:inline-flex h-8 absolute right-3 bg-red-400 text-white rounded-full p-2 cursor-pointer " />
+        <SearchIcon
+          onClick={search}
+          className="hidden md:inline-flex h-8 absolute right-3 bg-red-400 text-white rounded-full p-2 cursor-pointer "
+        />
       </div>
 
       <div className="flex space-x-4 items-center justify-end">
@@ -102,8 +127,8 @@ function Header({ placeholder }) {
           <Menu as="div" className="relative inline-block text-left">
             <div>
               <Menu.Button className="flex items-center cursor-pointer space-x-2 border-2 focus:outline-none text-gray-500 rounded-full px-2 py-1 hover:shadow-md transition-all duration-300">
-                <MenuIcon className="h-6" />
-                <UserCircleIcon className="h-6" />
+                <MenuIcon className="h-5" />
+                <UserCircleIcon className="h-7" />
               </Menu.Button>
             </div>
 
@@ -116,54 +141,55 @@ function Header({ placeholder }) {
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95"
             >
-              <Menu.Items className="absolute right-0 z-10 mt-5 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                <div className="py-1">
-                  <Menu.Item>
-                    {({ active }) => (
-                      <a
-                        className={classNames(
-                          active
-                            ? "bg-gray-100 text-gray-900"
-                            : "text-gray-700",
-                          "block px-4 py-2 text-sm cursor-pointer"
-                        )}
-                        onClick={() => setOpenSignupModal(true)}
-                      >
-                        Sign up
-                      </a>
-                    )}
-                  </Menu.Item>
-                  <Menu.Item>
-                    {({ active }) => (
-                      <a
-                        href="#"
-                        className={classNames(
-                          active
-                            ? "bg-gray-100 text-gray-900"
-                            : "text-gray-700",
-                          "block px-4 py-2 text-sm"
-                        )}
-                      >
-                        Login
-                      </a>
-                    )}
-                  </Menu.Item>
-                  <Menu.Item>
-                    {({ active }) => (
-                      <a
-                        href="#"
-                        className={classNames(
-                          active
-                            ? "bg-gray-100 text-gray-900"
-                            : "text-gray-700",
-                          "block px-4 py-2 text-sm"
-                        )}
-                      >
-                        Became a host
-                      </a>
-                    )}
-                  </Menu.Item>
-                  <form method="POST" action="#">
+              <Menu.Items className="absolute right-0 z-10 mt-5 w-56 origin-top-right rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                {userInfo === null ? (
+                  <div className="py-1">
+                    <Menu.Item>
+                      {({ active }) => (
+                        <a
+                          onClick={() => setOpenLoginModal(true)}
+                          className={classNames(
+                            active
+                              ? "bg-gray-100 text-gray-900"
+                              : "text-gray-700",
+                            "block px-4 py-2 text-sm cursor-pointer"
+                          )}
+                        >
+                          Login
+                        </a>
+                      )}
+                    </Menu.Item>
+                    <Menu.Item>
+                      {({ active }) => (
+                        <a
+                          className={classNames(
+                            active
+                              ? "bg-gray-100 text-gray-900"
+                              : "text-gray-700",
+                            "block px-4 py-2 text-sm cursor-pointer"
+                          )}
+                          onClick={() => setOpenSignupModal(true)}
+                        >
+                          Sign up
+                        </a>
+                      )}
+                    </Menu.Item>
+
+                    <Menu.Item>
+                      {({ active }) => (
+                        <a
+                          href="#"
+                          className={classNames(
+                            active
+                              ? "bg-gray-100 text-gray-900"
+                              : "text-gray-700",
+                            "block px-4 py-2 text-sm"
+                          )}
+                        >
+                          Became a host
+                        </a>
+                      )}
+                    </Menu.Item>
                     <Menu.Item>
                       {({ active }) => (
                         <button
@@ -179,14 +205,97 @@ function Header({ placeholder }) {
                         </button>
                       )}
                     </Menu.Item>
-                  </form>
-                </div>
+                  </div>
+                ) : (
+                  <div className="">
+                    <div className="border-gray-200 border-b-2">
+                      <Menu.Item>
+                        {({ active }) => (
+                          <a
+                            onClick={() => setOpenLoginModal(true)}
+                            className={classNames(
+                              active
+                                ? "bg-gray-100 text-gray-900"
+                                : "text-gray-700",
+                              "block px-4 py-2 text-sm cursor-pointer font-semibold"
+                            )}
+                          >
+                            Message
+                          </a>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <a
+                            className={classNames(
+                              active
+                                ? "bg-gray-100 text-gray-900"
+                                : "text-gray-700",
+                              "block px-4 py-2 text-sm cursor-pointer font-semibold"
+                            )}
+                          >
+                            Notification
+                          </a>
+                        )}
+                      </Menu.Item>
+
+                      <Menu.Item>
+                        {({ active }) => (
+                          <a
+                            href="#"
+                            className={classNames(
+                              active
+                                ? "bg-gray-100 text-gray-900"
+                                : "text-gray-700",
+                              "block px-4 py-2 text-sm font-semibold "
+                            )}
+                          >
+                            Wishlists
+                          </a>
+                        )}
+                      </Menu.Item>
+                    </div>
+                    <div className="">
+                      <Menu.Item>
+                        {({ active }) => (
+                          <button
+                            type="submit"
+                            className={classNames(
+                              active
+                                ? "bg-gray-100 text-gray-900"
+                                : "text-gray-700",
+                              "block w-full px-4 py-2 text-left text-sm"
+                            )}
+                          >
+                            Help
+                          </button>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <button
+                            type="submit"
+                            className={classNames(
+                              active
+                                ? "bg-gray-100 text-gray-900"
+                                : "text-gray-700",
+                              "block w-full px-4 py-2 text-left text-sm"
+                            )}
+                            onClick={handleLogout}
+                          >
+                            Logout
+                          </button>
+                        )}
+                      </Menu.Item>
+                    </div>
+                  </div>
+                )}
               </Menu.Items>
             </Transition>
           </Menu>
         </div>
       </div>
-      
+
       {isComponentVisible ? (
         <div className="flex flex-col col-span-3 mt-6 mx-auto rounded-lg">
           <div
@@ -241,9 +350,15 @@ function Header({ placeholder }) {
         <></>
       )}
       {/* Login form Modal */}
-      <Login
+      <Signup
         openSignupModal={openSignupModal}
         setOpenSignupModal={setOpenSignupModal}
+        cancelButtonRef={cancelButtonRef}
+      />
+
+      <Login
+        openLoginModal={openLoginModal}
+        setOpenLoginModal={setOpenLoginModal}
         cancelButtonRef={cancelButtonRef}
       />
     </header>

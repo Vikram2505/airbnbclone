@@ -18,7 +18,6 @@ export const allHomes = createAsyncThunk(
 export const registerHome = createAsyncThunk(
   "/home/create-home",
   async (formValue, { rejectWithValue }) => {
-    console.log("call");
     try {
       let response = await API.registerHomeAPI(formValue);
       return response.data;

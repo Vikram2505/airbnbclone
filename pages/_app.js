@@ -1,12 +1,13 @@
 import "../styles/global.css";
 import NextNProgress from "nextjs-progressbar";
-import { Provider } from "react-redux";
+import { Provider, useDispatch } from "react-redux";
 import store from "../store/store";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import { useEffect } from "react";
 
 function MyApp({ Component, pageProps }) {
+    
   useEffect(() => {
     // // To remove the copied div of Toast container
     // let root = document.querySelector("#__next");
