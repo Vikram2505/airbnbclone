@@ -6,16 +6,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import withPrivateRoute from "../components/withPrivateRoute";
-import { registerHome } from "../store/slices/homeSlice.js";
+import { clearSuccessMsg, registerHome } from "../store/slices/homeSlice.js";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 
- function becomeHost() {
+function becomeHost() {
   const [thisPlaceOffers, setThisPlaceOffers] = useState([]);
   const [homeImages, setHomeImages] = useState([]);
   const [ownerImage, setOwnerImage] = useState([]);
   const router = useRouter();
-  // const [imageArray, setImageArray] = useState({image: []});
+
+  const [selectedFiles, setSelectedFiles] = useState([]);
 
   const { error, loading, success } = useSelector((state) => ({
     ...state.AllHomes,
@@ -24,34 +25,34 @@ import { useRouter } from "next/router";
   const [toggle, setToggle] = useState(false);
   const dispatch = useDispatch();
 
-  const RegisterHomeSchema = Yup.object().shape({
-    home_name: Yup.string().required("*This field is required"),
-    owner_name: Yup.string().required("*This field is required"),
-    owner_email: Yup.string()
-      .email("Please enter a valid email")
-      .required("*This field is required"),
-    owner_phoneNo: Yup.number()
-      .min(10, "Please enter a valid phone no.")
-      .required("*This field is required"),
-    home_desc: Yup.string().required("*This field is required"),
-    // home_image: Yup.string().required(),
-    // owner_image: Yup.string().required(),
-    price: Yup.number().required("*This field is required"),
-    // location: Yup.string().required("*This field is required"),
-    // home_city: Yup.string().required("*This field is required"),
-    // home_state: Yup.string().required("*This field is required"),
-    // home_zipCode: Yup.number().required("*This field is required"),
-    // latitude: Yup.number().required("*This field is required"),
-    // longitude: Yup.number().required("*This field is required"),
-    // total_guests: Yup.number().required("*This field is required"),
-    // total_beds: Yup.number().required("*This field is required"),
-    // total_bedroom: Yup.number().required("*This field is required"),
-    // total_bathroom: Yup.number().required("*This field is required"),
-    // rating: Yup.number().required("*This field is required"),
-    // this_place_offers: Yup.array().required("*This field is required"),
-    // property_type: Yup.string().required("*This field is required"),
-    // type_of_place: Yup.string().required("*This field is required"),
-  });
+  // const RegisterHomeSchema = Yup.object().shape({
+  //   home_name: Yup.string().required("*This field is required"),
+  //   owner_name: Yup.string().required("*This field is required"),
+  //   owner_email: Yup.string()
+  //     .email("Please enter a valid email")
+  //     .required("*This field is required"),
+  //   owner_phoneNo: Yup.number()
+  //     .min(10, "Please enter a valid phone no.")
+  //     .required("*This field is required"),
+  //   home_desc: Yup.string().required("*This field is required"),
+  //   // home_image: Yup.string().required(),
+  //   // owner_image: Yup.string().required(),
+  //   price: Yup.number().required("*This field is required"),
+  //   // location: Yup.string().required("*This field is required"),
+  //   // home_city: Yup.string().required("*This field is required"),
+  //   // home_state: Yup.string().required("*This field is required"),
+  //   // home_zipCode: Yup.number().required("*This field is required"),
+  //   // latitude: Yup.number().required("*This field is required"),
+  //   // longitude: Yup.number().required("*This field is required"),
+  //   // total_guests: Yup.number().required("*This field is required"),
+  //   // total_beds: Yup.number().required("*This field is required"),
+  //   // total_bedroom: Yup.number().required("*This field is required"),
+  //   // total_bathroom: Yup.number().required("*This field is required"),
+  //   // rating: Yup.number().required("*This field is required"),
+  //   // this_place_offers: Yup.array().required("*This field is required"),
+  //   // property_type: Yup.string().required("*This field is required"),
+  //   // type_of_place: Yup.string().required("*This field is required"),
+  // });
 
   // This place offers checkbox store value
   const checkboxValue = (event) => {
@@ -88,20 +89,31 @@ import { useRouter } from "next/router";
       property_type: "",
       type_of_place: "",
     },
-    validationSchema: RegisterHomeSchema,
+    // validationSchema: RegisterHomeSchema,
     onSubmit: (values) => {
+      console.log(values);
       dispatch(registerHome(values));
-      
+
       setToggle((e) => !e);
     },
   });
 
   // multiple image upload function
   const uploadImageHome = (event, type) => {
+    // var fileImage = event.target.files[0];
+    //   var reader = new FileReader();
+    //   reader.addEventListener(
+    //     "load",
+    //     function () {
+    //       setHomeImages((prev) => [...prev, reader.result]);
+    //     },
+    //     false
+    //   );
+    //   reader.readAsDataURL(fileImage);
     if (type === "Home Image") {
       let selectedFiles = event.target.files;
       let selectedFilesArray = Array.from(selectedFiles);
-      // console.log(selectedFilesArray, "selected file array");
+      setSelectedFiles((prev) => prev.concat(selectedFilesArray));
       let imagesArray = selectedFilesArray.map((files) => {
         return URL.createObjectURL(files);
       });
@@ -120,8 +132,10 @@ import { useRouter } from "next/router";
 
   // Delete image uploaded
   function deleteHandler(image) {
+    console.log(image, "delete handler");
     setHomeImages(homeImages.filter((e) => e !== image));
     URL.revokeObjectURL(image);
+    setSelectedFiles(selectedFiles.filter((e) => e !== image));
   }
 
   function getLocation() {
@@ -142,7 +156,10 @@ import { useRouter } from "next/router";
     }
     if (success) {
       toast.success(success);
-      router.push("/");
+      setTimeout(() => {
+        router.push("/");
+      }, 2000);
+      dispatch(clearSuccessMsg(""));
       RegisterHomeFormik.handleReset();
       homeImages.length = 0;
       ownerImage.length = 0;
@@ -168,7 +185,10 @@ import { useRouter } from "next/router";
             <h1 className="text-lg lg:text-4xl font-semibold mb-5">
               Register your Residance
             </h1>
-            <form onSubmit={RegisterHomeFormik.handleSubmit} encType="multipart/form-data">
+            <form
+              onSubmit={RegisterHomeFormik.handleSubmit}
+              encType="multipart/form-data"
+            >
               <div className="overflow-hidden shadow sm:rounded-md">
                 <div className="bg-white px-4 py-5 sm:p-6">
                   <div className="grid grid-cols-6 gap-6">
@@ -553,7 +573,6 @@ import { useRouter } from "next/router";
                         <option value={"Shared room"}>Shared room</option>
                         <option value={"Farm stay"}>Farm stay</option>
                         <option value={"Hotel room"}>Hotel room</option>
-                        <option value={"Flat"}>Flat</option>
                         <option value={"Holiday home"}>Holiday home</option>
                       </select>
                     </div>
@@ -639,7 +658,7 @@ import { useRouter } from "next/router";
                         </div>
                       </div>
                       <div className="grid grid-cols-6 gap-2">
-                        {homeImages.map((item, index) => (
+                        {homeImages?.map((item, index) => (
                           <div
                             key={index}
                             className="col-span-2 sm:col-span-2 relative"
@@ -751,10 +770,10 @@ import { useRouter } from "next/router";
   );
 }
 
-becomeHost.getInitialProps = async props => {
-  console.info('##### Congratulations! You are authorized! ######', props);
-  return { }
-}
+becomeHost.getInitialProps = async (props) => {
+  // console.info('##### Congratulations! You are authorized! ######', props);
+  return {};
+};
 
 // export async function getServerSideProps() {
 
@@ -781,7 +800,7 @@ becomeHost.getInitialProps = async props => {
 //     becomeHost: {
 //       exploreData,
 //     },
-//   }; 
+//   };
 // }
 
 export default withPrivateRoute(becomeHost);

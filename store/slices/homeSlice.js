@@ -38,9 +38,9 @@ const homeSlice = createSlice({
     success: "",
   },
   reducers: {
-    // becomeHostRequestBody: (state, action) => {
-    //   state.BecomeHostRequestBody = action.payload;
-    // }
+    clearSuccessMsg: (state, action) => {
+      state.success = action.payload;
+    }
   },
   extraReducers: {
     [allHomes.pending]: (state, action) => {
@@ -72,6 +72,6 @@ const homeSlice = createSlice({
   },
 });
 
-// export const { becomeHostRequestBody } = homeSlice.actions;
+export const { clearSuccessMsg } = homeSlice.actions;
 
 export default homeSlice.reducer;
