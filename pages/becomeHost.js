@@ -5,7 +5,7 @@ import data from "../utility/homes.json";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import withPrivateRoute from "../components/withPrivateRoute";
+import withAuth from "../components/withPrivateRoute";
 import { clearSuccessMsg, registerHome } from "../store/slices/homeSlice.js";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
@@ -770,39 +770,7 @@ function becomeHost() {
   );
 }
 
-becomeHost.getInitialProps = async (props) => {
-  // console.info('##### Congratulations! You are authorized! ######', props);
-  return {};
-};
 
-// export async function getServerSideProps() {
-
-//   const exploreData = await fetch("http://localhost:3000/home/create-home", {
-//     method: "POST",
-//     headers: {
-//       "Accept": "application/json",
-//       "Content-Type": "multipart/form-data",
-//     },
-//     body: JSON.stringify(),
-//   })
-//     .then((res) => {
-//       console.log(res, 'response');
-//       if (!res.ok) {
-//         throw new Error(`This is an HTTP error: The status is ${res.status} `);
-//       }
-//       return res.json();
-//     })
-//     .catch((err) => {
-//       console.log(err.message);
-//     });
-
-//   return {
-//     becomeHost: {
-//       exploreData,
-//     },
-//   };
-// }
-
-export default withPrivateRoute(becomeHost);
+export default withAuth(becomeHost);
 
 // export default becomeHost;

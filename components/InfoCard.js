@@ -17,18 +17,18 @@ function InfoCard({ item }) {
       </div>
       <div className="ml-5 flex flex-col flex-grow">
         <div className="flex justify-between mb-1">
-          <p className="text-gray-500">{item?.home_name}</p>
+          <p className="text-gray-500">{item?.type_of_place} in {item?.home_city}</p>
           <HeartIcon className="h-6 cursor-pointer active:scale-90" />
         </div>
         <h2 className="text-lg font-medium ">{item?.home_name}</h2>
         <div className="border-b w-10 pl-2 mt-2" />
         <p className="text-gray-500 pt-2 text-sm flex-grow">
-          <div className="mt-2">
-            <span>{item?.total_bedroom} bedroom </span>
-            <span className="ml-1"> {item?.total_beds} beds </span>
-            <span className="ml-1">{item?.total_bathroom} bathroom </span>
+          <div className="mt-2 relative">
+            <span className="">{item?.total_bedroom} bedroom </span>
+            <span className="pl-4 listStyleDot"> {item?.total_beds} beds </span>
+            <span className="pl-4 listStyleDot" >{item?.total_bathroom} bathroom </span>
             {item?.this_place_offers?.map((item) => (
-              <span className="ml-1">{item} bathroom </span>
+              <span className="pl-4 listStyleDot">{item} </span>
             ))}
           </div>
         </p>

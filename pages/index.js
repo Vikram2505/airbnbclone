@@ -16,7 +16,7 @@ export default function Home({ exploreData }) {
         <title>Airbnb clone</title>
         <link
           rel="icon"
-          href="https://a0.muscache.com/airbnb/static/logotype_favicon-21cc8e6c6a2cca43f061d2dcabdf6e58.ico"
+          href="/favicon.ico"
         />
       </Head>
 

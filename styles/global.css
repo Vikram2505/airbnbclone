@@ -86,8 +86,8 @@
 .page-item.active .page-link {
   z-index: 3;
   color: #fff;
-  background-color: #0d6efd;
-  border-color: #0d6efd;
+  background-color: #f87171;
+  border-color: #f87171;
 }
 .page-item.disabled .page-link {
   color: #6c757d;
@@ -98,10 +98,126 @@
 .page-link {
     position: relative;
     display: block;
-    color: #0d6efd;
+    color: #f87171;
     padding: .375rem .75rem;
     text-decoration: none;
     background-color: #fff;
     border: 1px solid #dee2e6;
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.listStyleDot{
+  position: relative;
+}
+.listStyleDot::before{
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  content: "";
+  top: 9px;
+  left: 3px;
+  margin: 0 3px;
+  border-radius: 5px;
+  background-color: gray;
+}
+
+/* Dashboard CSS style  */
+.nk-sidebar {
+  width: 15.1875rem;
+  padding-bottom: 112px;
+  height: 100%;
+  position: fixed;
+  height: 100vh;
+  overflow: auto;
+  top: 5rem;
+  padding-top: 0;
+  background: #fff;
+  transition: all .2s ease;
+}
+.nk-nav-scroll{
+  overflow: hidden;
+    width: auto;
+    height: 100%;
+}
+.nk-sidebar .metismenu{
+  background-color: #fff
+}
+.nk-sidebar ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  background: #fafafa;
+}
+.nk-sidebar .metismenu {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  background: #fff;
+}
+.metismenu {
+  transition: all .4s ease-in-out;
+}
+.nk-sidebar .metismenu > li {
+  color: #27394F;
+}
+.nk-sidebar .metismenu > li {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  position: relative;
+  color: #464a53;
+}
+.nav-label {
+  padding: 0.8125rem 1.5625rem;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.05rem;
+  color: #abafb3;
+}
+.nav-label {
+  padding: 0.8125rem 1.5625rem;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.05rem;
+  color: #abafb3;
+}
+.nk-sidebar .metismenu a {
+  position: relative;
+  display: block;
+  padding: 0.8125rem 1.25rem;
+  outline-width: 0;
+  transition: all .3s ease-out;
+  color: #464a53;
+}
+.content-body {
+  margin-left: 15.1875rem;
+  z-index: 0;
+}
+.card {
+  margin-bottom: 30px;
+  border: 0px;
+  border-radius: 0.625rem;
+  box-shadow: 6px 11px 41px -28px #a99de7;
+}
+.gradient-1, .dropdown-mega-menu .ext-link.link-1 a, .morris-hover, .datamaps-hoverover {
+  background-image: linear-gradient(230deg, #759bff, #843cf6);
+}
+.gradient-2, .dropdown-mega-menu .ext-link.link-3 a {
+  background-image: linear-gradient(230deg, #fc5286, #fbaaa2);
+}
+.gradient-3, .dropdown-mega-menu .ext-link.link-2 a, .header-right .icons .user-img .activity {
+  background-image: linear-gradient(230deg, #ffc480, #ff763b);
+}
+.gradient-4, .sidebar-right .nav-tabs .nav-item .nav-link.active::after, .sidebar-right .nav-tabs .nav-item .nav-link.active span i::before {
+  background-image: linear-gradient(230deg, #0e4cfd, #6a8eff);
+}
+.card .card-body {
+  padding: 1.88rem 1.81rem;
 }

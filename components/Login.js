@@ -1,14 +1,24 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import { SignIn } from "../store/slices/authSlice.js";
+import { resetLoginStatus, SignIn } from "../store/slices/authSlice.js";
 import { toast } from "react-toastify";
+import Router from "next/router";
+import { EyeIcon, EyeOffIcon } from "@heroicons/react/outline";
 
 const Login = ({ openLoginModal, setOpenLoginModal, cancelButtonRef }) => {
   const dispatch = useDispatch();
-  const {loading, userInfo, error, success} = useSelector((state) => ({...state.Auth}))
+  const { loading, userInfo, error, success } = useSelector((state) => ({
+    ...state.Auth,
+  }));
+  const [showPassword, setShowPassword] = useState(false);
+  // Toggle password eye symbol
+  const toggleEyeSymbol = () => {
+    setShowPassword((e) => !e);
+  };
+
   const LoginFormik = useFormik({
     initialValues: {
       email: "",
@@ -25,15 +35,17 @@ const Login = ({ openLoginModal, setOpenLoginModal, cancelButtonRef }) => {
     },
   });
 
-useEffect(() => {
-  if(error){
-    toast.error(error);
-  }
-  if(success){
-    LoginFormik.handleReset();
-    setOpenLoginModal(false);
-  }
-}, [error, success])
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+    }
+    if (success) {
+      LoginFormik.handleReset();
+      Router.push("/");
+      dispatch(resetLoginStatus(false));
+      setOpenLoginModal(false);
+    }
+  }, [error, success]);
 
   return (
     <div>
@@ -105,16 +117,25 @@ useEffect(() => {
                           >
                             Password
                           </label>
-                          <input
-                            type="password"
-                            name="password"
-                            id="password"
-                            placeholder="Password"
-                            autoComplete="given-name"
-                            {...LoginFormik.getFieldProps("password")}
-                            className="mt-1 py-2 px-3 block w-full rounded-md border-2 border-gray-100 focus:outline-none  shadow-sm focus:border-gray-300 sm:text-sm"
-                          />
-                           {LoginFormik.errors.password &&
+                          <div className="relative">
+                            <input
+                              type={!showPassword ? "password" : "text"}
+                              name="password"
+                              id="password"
+                              placeholder="Password"
+                              autoComplete="given-name"
+                              {...LoginFormik.getFieldProps("password")}
+                              className="mt-1 py-2 px-3 block w-full rounded-md border-2 border-gray-100 focus:outline-none  shadow-sm focus:border-gray-300 sm:text-sm"
+                            />
+                            <div onClick={toggleEyeSymbol} className="cursor-pointer absolute top-2 right-3">
+                              {!showPassword ? (
+                                <EyeIcon className="h-5  " />
+                              ) : (
+                                <EyeOffIcon className="h-5" />
+                              )}
+                            </div>
+                          </div>
+                          {LoginFormik.errors.password &&
                           LoginFormik.touched.password ? (
                             <div className="text-red-500">
                               {LoginFormik.errors.password}
@@ -128,7 +149,8 @@ useEffect(() => {
                         type="submit"
                         className="mt-3 inline-flex w-100 justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
                         // onClick={() => setOpenLoginModal(false)}
-                        ref={cancelButtonRef} disabled={loading}
+                        ref={cancelButtonRef}
+                        disabled={loading}
                       >
                         Continue
                       </button>
