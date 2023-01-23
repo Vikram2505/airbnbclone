@@ -1,8 +1,9 @@
 import axios from "axios";
 
 const API = axios.create({
-    baseURL: "http://localhost:3000",
-    // baseURL: "https://backend-airbnb-clone.vercel.app",
+    // baseURL: "http://localhost:3000",
+    baseURL: "https://backend-airbnb-clone.vercel.app",
+    mode: 'no-cors',
     headers: {
     "Content-Type": "application/json",
     // 'Content-Type': 'multipart/form-data; charset=utf-8; boundary="another cool boundary";'

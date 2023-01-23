@@ -115,7 +115,7 @@ export default function Search() {
             ))}
           </div>
           <div className="grid justify-center mt-2 mb-6">
-            {AllHomes.length > 1 && (
+            {AllHomes?.length > 1 && (
               <Pagination
                 handlePageClick={handlePageClick}
                 pageCount={numberOfPages}
