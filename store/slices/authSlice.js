@@ -25,10 +25,13 @@ const authSlice = createSlice({
     setUser: (state, { payload }) => {
       state.userInfo = payload;
     },
-    setLogout: (state, action) => {
+    setLogout: (state) => {
       localStorage.clear();
       state.userInfo = null;
     },
+    resetLoginStatus: (state, {payload}) => {
+      state.success = payload;
+    }
   },
   extraReducers: {
     [SignIn.pending]: (state) => {
@@ -40,7 +43,6 @@ const authSlice = createSlice({
       state.loading = false;
       state.userInfo = payload;
       localStorage.setItem("airSecret", JSON.stringify({ ...payload }));
-
       state.success = true;
     },
     [SignIn.rejected]: (state, { payload }) => {
@@ -50,6 +52,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { setUser, setLogout } = authSlice.actions;
+export const { setUser, setLogout, resetLoginStatus } = authSlice.actions;
 
 export default authSlice.reducer;

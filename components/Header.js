@@ -19,6 +19,7 @@ import Login from "./Login";
 import Signup from "./Signup";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser, setLogout } from "../store/slices/authSlice";
+import { toast } from "react-toastify";
 
 function Header({ placeholder }) {
   const [searchInput, setSerchInput] = useState("");
@@ -78,6 +79,8 @@ function Header({ placeholder }) {
 
   const handleLogout = () => {
     dispatch(setLogout());
+    toast.success("User logout successfully")
+    router.push("/");
   };
 
   useEffect(() => {
@@ -90,8 +93,7 @@ function Header({ placeholder }) {
       <div className="relative flex items-center hidden h-10 cursor-pointer my-auto md:block lg:block">
         <Image
           onClick={() => router.push("/")}
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Airbnb_Logo_B%C3%A9lo.svg/2560px-Airbnb_Logo_B%C3%A9lo.svg.png"
-          // src="/../public/residenciaLogo.jpeg"
+          src="/logo.webp"
           height="50"
           width="130"
           objectFit="contain"
@@ -118,9 +120,9 @@ function Header({ placeholder }) {
 
       <div className="flex space-x-4 items-center justify-end">
         <Link href={"/becomeHost"}>
-          <p className="text-black opacity-60 font-semibold hidden md:inline cursor-pointer">
+          <span className="text-black opacity-60 font-semibold text-lg hidden md:inline cursor-pointer">
             Become a host
-          </p>
+          </span>
         </Link>
         <GlobeAltIcon className="h-6 text-gray-500 cursor-pointer" />
 
@@ -179,7 +181,7 @@ function Header({ placeholder }) {
                     <Menu.Item>
                       {({ active }) => (
                         <a
-                          href="#"
+                          onClick={() => router.push("/becomeHost")}
                           className={classNames(
                             active
                               ? "bg-gray-100 text-gray-900"
@@ -253,6 +255,39 @@ function Header({ placeholder }) {
                           >
                             Wishlists
                           </a>
+                        )}
+                      </Menu.Item>
+                    </div>
+                    <div className="border-gray-200 border-b-2">
+                      <Menu.Item>
+                        {({ active }) => (
+                          <button
+                            type="submit"
+                            onClick={() => router.push("/becomeHost")}
+                            className={classNames(
+                              active
+                                ? "bg-gray-100 text-gray-900"
+                                : "text-gray-700",
+                              "block w-full px-4 py-2 text-left text-sm"
+                            )}
+                          >
+                            Become a host
+                          </button>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <button
+                            onClick={() => router.push("/user/userDashboard")}
+                            className={classNames(
+                              active
+                                ? "bg-gray-100 text-gray-900"
+                                : "text-gray-700",
+                              "block w-full px-4 py-2 text-left text-sm"
+                            )}
+                          >
+                            Account
+                          </button>
                         )}
                       </Menu.Item>
                     </div>

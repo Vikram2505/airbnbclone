@@ -24,8 +24,11 @@ export default function Home({ exploreData }) {
   return (
     <div className="">
       <Head>
-        <title>Residencia-Hotels and Homes</title>
-        <img src="/favicon.jpeg" alt="" />
+        <title>Airbnb clone</title>
+        <link
+          rel="icon"
+          href="/favicon.ico"
+        />
       </Head>
 
       <Header />

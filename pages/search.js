@@ -9,16 +9,18 @@ import data from "../utility/homes.json";
 import moment from "moment";
 import Image from "next/image";
 
-import {allHomes} from "../store/slices/homeSlice.js";
-import { useDispatch, useSelector } from 'react-redux';
+import { allHomes } from "../store/slices/homeSlice.js";
+import { useDispatch, useSelector } from "react-redux";
 import Pagination from "../components/Pagination";
 
 export default function Search() {
   const router = useRouter();
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
-  const {AllHomes, numberOfPages, count} = useSelector((state) => ({...state.AllHomes.Homes}));
-//   console.log(AllHomes,'all homes');
+  const { AllHomes, numberOfPages, count } = useSelector((state) => ({
+    ...state.AllHomes.Homes,
+  }));
+  //   console.log(AllHomes,'all homes');
   //ES6 destructuring
   const { location, startdate, enddate, noOfGuests } = router.query;
   const formattedStartDate = moment(new Date(startdate)).format("ddd MMMM yy");
@@ -27,30 +29,30 @@ export default function Search() {
 
   const getAllHomes = () => {
     let requestBody = {
-        "dataLimit": 5,
-        "pageNo": currentPage,
-        "keyword": location,
-        "minPrice": "",
-        "maxPrice": "",
-        "typeOfPlace": "",
-        "bedrooms": "",
-        "beds": "",
-        "bathroom": "",
-        "propertyType": "",
-        "amenities": ""
+      dataLimit: 5,
+      pageNo: currentPage,
+      keyword: location,
+      minPrice: "",
+      maxPrice: "",
+      typeOfPlace: "",
+      bedrooms: "",
+      beds: "",
+      bathroom: "",
+      propertyType: "",
+      amenities: "",
     };
 
-    dispatch(allHomes(requestBody));    
-};
+    dispatch(allHomes(requestBody));
+  };
 
-const handlePageClick = (e) => {
-  // dispatch(setCurrentPage(e.selected + 1));
-  setCurrentPage(e.selected + 1);
-};
+  const handlePageClick = (e) => {
+    // dispatch(setCurrentPage(e.selected + 1));
+    setCurrentPage(e.selected + 1);
+  };
 
-useEffect(() => {
+  useEffect(() => {
     getAllHomes();
-}, [location, currentPage])
+  }, [location, currentPage]);
   return (
     <div className="h-screen">
       <Head>
@@ -92,11 +94,16 @@ useEffect(() => {
             <p className="button">More filters</p>
           </div>
           <div className="flex flex-col border-t pb-3">
-            {AllHomes?.map(
-              (item,index) => (
-                <InfoCard
-                  key={index}
-                  item={item}
+            {AllHomes < 1 ? (
+              <h1 className="text-center my-6 text-2xl font-semibold">
+                {" "}
+                Data not found
+              </h1>
+            ) : null}
+            {AllHomes?.map((item, index) => (
+              <InfoCard
+                key={index}
+                item={item}
                 //   img={img}
                 //   location={location}
                 //   title={title}
@@ -104,11 +111,17 @@ useEffect(() => {
                 //   star={star}
                 //   price={price}
                 //   total={total}
-                />
-              )
+              />
+            ))}
+          </div>
+          <div className="grid justify-center mt-2 mb-6">
+            {AllHomes?.length > 1 && (
+              <Pagination
+                handlePageClick={handlePageClick}
+                pageCount={numberOfPages}
+              />
             )}
           </div>
-          <Pagination handlePageClick={handlePageClick} pageCount={numberOfPages} />
         </section>
 
         <section className="hidden sticky top-0 lg:inline-flex h-screen lg:min-w-[600px]">
