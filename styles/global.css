@@ -105,3 +105,39 @@
     border: 1px solid #dee2e6;
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
+
+
+
+
+/* Landing page css  */
+.banner-first{
+  height: inherit;
+  width: 100%;
+  border-radius: 10px 0 0 10px; 
+}
+.banner-rest{
+  height: 180px;
+  width: 100%;
+}
+.homeCategory{
+  padding-left: 0 !important;
+  list-style: disc;
+}
+.homeCategory li:nth-child(1){
+  list-style: none;
+}
+.homeCategory li{
+  margin-right:30px;
+}
+.homeDescription .profile{
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
+}
+.homeInfo svg{
+  margin: 0 10px;
+}
+
+.placeOffer .icon{
+  margin: 0 10px;
+}

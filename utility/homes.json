@@ -3,42 +3,42 @@
         "exploreData": [
             {
                 "img": "https://links.papareact.com/5j2",
-                "location": "London",
-                "distance": "45-minute drive"
+                "location": "Pimplad Nashik,Maharashtra",
+                "distance": "134 kilometres away"
             },
             {
                 "img": "https://links.papareact.com/1to",
-                "location": "Manchester",
+                "location": "Amravati, Maharashtra",
                 "distance": "4.5-hour drive"
             },
             {
                 "img": "https://links.papareact.com/40m",
-                "location": "Liverpool",
+                "location": "Mumbai, Mahrashtra",
                 "distance": "4.5-hour drive"
             },
             {
                 "img": "https://links.papareact.com/msp",
-                "location": "York",
+                "location": "Pune, Maharashtra",
                 "distance": "4-hour drive"
             },
             {
                 "img": "https://links.papareact.com/2k3",
-                "location": "Cardiff",
+                "location": "Aurangabad,Maharashtra",
                 "distance": "45-minute drive"
             },
             {
                 "img": "https://links.papareact.com/ynx",
-                "location": "Birkenhead",
+                "location": "Lonavala,Maharashtra",
                 "distance": "4.5-hour drive"
             },
             {
                 "img": "https://links.papareact.com/kji",
-                "location": "Newquay",
+                "location": "Solapur,Maharashtra",
                 "distance": "6-hour drive"
             },
             {
                 "img": "https://links.papareact.com/41m",
-                "location": "Hove",
+                "location": "Ahmednagar,Maharashtra",
                 "distance": "2-hour drive"
             }
         ],
@@ -64,13 +64,13 @@
             {
                 "img": "https://links.papareact.com/xqj",
                 "location": "Private room in center of London",
-                "title": "Stay at this spacious Edwardian House",
+                "title": "Stay at this RadissonBlueHotel",
                 "description": "1 guest · 1 bedroom · 1 bed · 1.5 shared bthrooms · Wifi · Kitchen · Free parking · Washing Machine",
                 "star": 4.73,
                 "price": "£30 / night",
                 "total": "£117 total",
-                "long": -0.0022275,
-                "lat": 51.5421655
+                "long": 79.067477,
+                "lat": 21.1059361
             },
             {
                 "img": "https://links.papareact.com/hz2",

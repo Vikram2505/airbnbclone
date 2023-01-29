@@ -7,21 +7,29 @@ import MediumCard from "../components/MediumCard";
 import SmallCard from "../components/SmallCard";
 import "mapbox-gl/dist/mapbox-gl.css";
 import data from "../utility/homes.json";
+import { useRouter } from "next/router";
 
 export default function Home({ exploreData }) {
   //{ exploreData, cardsData }
+  const router = useRouter();
+  const searchBySelectedCity = (e) =>{
+   
+    router.push({
+      pathname: "/search",
+      query: {
+        location: e
+      },})
+  }
+
   return (
     <div className="">
       <Head>
-        <title>Airbnb clone</title>
-        <link
-          rel="icon"
-          href="https://a0.muscache.com/airbnb/static/logotype_favicon-21cc8e6c6a2cca43f061d2dcabdf6e58.ico"
-        />
+        <title>Residencia-Hotels and Homes</title>
+        <img src="/favicon.jpeg" alt="" />
       </Head>
 
       <Header />
-      <Banner />
+      <Banner searchBySelectedCity={searchBySelectedCity} />
 
       <main className="max-w-fullxl bg-white mx-auto px-8 sm:px-16 ">
         <section className="pt-6">
@@ -33,6 +41,7 @@ export default function Home({ exploreData }) {
                 img={img}
                 distance={distance}
                 location={location}
+                searchBySelectedCity={searchBySelectedCity}
               />
             ))}
           </div>
@@ -42,14 +51,14 @@ export default function Home({ exploreData }) {
           <h2 className="text-4xl font-semibold pt-6 ">Live Anywhere</h2>
           <div className="flex space-x-3 p-3 -ml-3 overflow-scroll scrollbar-hide">
             {data.data.cardsData?.map((item) => (
-              <MediumCard key={item.img} img={item.img} title={item.title} />
+              <MediumCard key={item.img} img={item.img} title={item.title} searchBySelectedCity={searchBySelectedCity}  />
             ))}
           </div>
         </section>
         <LargeCard
           img="https://a0.muscache.com/im/pictures/2da67c1c-0c61-4629-8798-1d4de1ac9291.jpg?im_w=1440"
           title="The Greatest Outdoors"
-          description="Wishlists curated by Airbnb"
+          description="Wishlists curated by Residencia"
           buttonText="Get Inspired"
         />
       </main>

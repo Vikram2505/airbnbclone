@@ -14,7 +14,7 @@ function Footer() {
 
                 <div className="space-y-3 text-sm">
                     <h5 className="font-bold">COMMUNITY</h5>
-                    <p>Airbnb.org disaster relief housing</p>
+                    <p>Residencia.org disaster relief housing</p>
                     <p>Support Afghan refugees</p>
                     <p>Celebrating diversity & belonging</p>
                     <p>Combating discrimination</p>
@@ -23,7 +23,7 @@ function Footer() {
                 <div className="space-y-3 text-sm">
                     <h5 className="font-bold">HOSTING</h5>
                     <p>Try hosting</p>
-                    <p>AirCover: protection for Hosts</p>
+                    <p>ResidenciaCover: protection for Hosts</p>
                     <p>Visit our community forum</p>
                     <p>How to host responsibly</p>
                 </div>
@@ -35,7 +35,7 @@ function Footer() {
                     <p>Letter from our founders</p>
                     <p>Careers</p>
                     <p>Investors</p>
-                    <p>Airbnb Luxe</p>
+                    <p>Residencia Luxe</p>
                 </div>
             </div>
         </div>
