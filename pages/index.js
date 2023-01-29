@@ -9,8 +9,8 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import data from "../utility/homes.json"
 
 
-export default function Home() { //{ exploreData, cardsData }
-
+export default function Home({exploreData}) { //{ exploreData, cardsData }
+	console.log(exploreData);
 	return (
 		<div className="">
 			<Head>
@@ -61,26 +61,29 @@ export default function Home() { //{ exploreData, cardsData }
 }
 
 
-// export async function getStaticProps() {
-// 	const exploreData = await fetch('../utility/homes.json')
-// 		.then(res => {
-// 			if(!res.ok){
-// 				throw new Error(
-// 					`This is an HTTP error: The status is ${res.status} `
-// 				);
-// 			}
-// 			return res.json()
+export async function getStaticProps() {
+	const exploreData = await fetch('https://backend-airbnb-clone.vercel.app/home/get-all-homes', {
+		method: "post",
+		headers: ""
+	})
+		.then(res => {
+			if(!res.ok){
+				throw new Error(
+					`This is an HTTP error: The status is ${res.status} `
+				);
+			}
+			return res.json()
 		
-// 		}).catch((err) => {
-// 			console.log(err.message);
-// 		})
+		}).catch((err) => {
+			console.log(err.message);
+		})
 
 // 	const cardsData = await fetch(' https://jsonkeeper.com/b/VMSR')
 // 		.then(res => res.json());
 
-// 	return {
-// 		props: {
-// 			exploreData, cardsData
-// 		}
-// 	}
-// }
+	return {
+		props: {
+			exploreData
+		}
+	}
+}
